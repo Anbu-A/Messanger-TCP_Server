@@ -2,17 +2,14 @@
 import socket
 from _thread import *
 
-
-# global variables
-CONNECTED_CLIENTS = []
-CLIENT_NAMES = {} 
-
 class Server():
 
     def __init__(self, ip, port):
         self.ip = ip
         self.port = port
         self.buffer_size = 1024
+        self.connected_clients = []
+        self.client_names = {} 
 
     def __enter__(self) :
         return self
@@ -42,10 +39,9 @@ class Server():
 
 
     def new_con(self, client, addr):
-        # add new clients to list and creates dict entry with name(which is the first message to receive from the client)
-        CONNECTED_CLIENTS.append(client)
+        self.connected_clients.append(client)
         client_name = client.recv(self.buffer_size).decode()
-        CLIENT_NAMES[client] = client_name
+        self.client_names[client] = client_name
         print(client_name)
 
         while True:
@@ -53,9 +49,7 @@ class Server():
                 client_msg = client.recv(self.buffer_size).decode()
                 print(f"User {str(client_name)}: {client_msg}")
 
-                # server receives message from a client and send it 
-                # to all other connected clients 
-                for clients in CONNECTED_CLIENTS:
+                for clients in self.connected_clients:
                     if(clients != client):  
                         clients.send((f"[{client_name}]:{client_msg}\n").encode())                
                 break
