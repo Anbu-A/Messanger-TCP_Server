@@ -3,7 +3,7 @@ Messenger-TCP_Server
 ====================
 
 
-Creates a socket and binds it chosen port.
+Creates a socket and binds it to chosen port.
 Clients can then connect via said ip and port.
 Messages received by the clients are then redirected to all other connected clients.  
 
@@ -28,3 +28,7 @@ A new dictionary entry for the dictionary holding the clientnames is being gener
 
 For all other messages:
 The message is then being redirected to all other connected clients.
+
+
+..code-block:: none
+<test --help>

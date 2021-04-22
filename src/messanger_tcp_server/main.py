@@ -20,7 +20,7 @@ def parse_args(args):
     Returns:
       :obj:`argparse.Namespace`: command line parameters namespace
     """
-    parser = argparse.ArgumentParser(description="Creates socket on binds it on chosen ip and port")
+    parser = argparse.ArgumentParser(description="Creates socket and binds it to chosen port")
     parser.add_argument(
         "--version",
         action="version",
