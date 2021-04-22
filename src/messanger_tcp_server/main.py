@@ -20,14 +20,14 @@ def parse_args(args):
     Returns:
       :obj:`argparse.Namespace`: command line parameters namespace
     """
-    parser = argparse.ArgumentParser(description="Starts a Server")
+    parser = argparse.ArgumentParser(description="Creates socket on binds it on chosen ip and port")
     parser.add_argument(
         "--version",
         action="version",
         version="Messanger-TCP_Server {ver}".format(ver=__version__),
     )
-    parser.add_argument(dest="server_ip", help="enter the server ip")
-    parser.add_argument(dest="port", help="enter the server port", type = int)
+    parser.add_argument(dest="server_ip", help="enter the server ip here")
+    parser.add_argument(dest="port", help="enter the server port here", type = int)
 
     return parser.parse_args(args)
 
@@ -47,14 +47,4 @@ def run():
 
 
 if __name__ == "__main__":
-    # ^  This is a guard statement that will prevent the following code from
-    #    being executed in the case someone imports this file instead of
-    #    executing it as a script.
-    #    https://docs.python.org/3/library/__main__.html
-
-    # After installing your project with pip, users can also run your Python
-    # modules as scripts via the ``-m`` flag, as defined in PEP 338::
-    #
-    #     python -m messanger_tcp_server.skeleton 42
-    #
     run()

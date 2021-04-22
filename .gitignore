@@ -23,6 +23,7 @@ __pycache__/*
 .vscode
 tags
 
+
 # Package files
 *.egg
 *.eggs/
@@ -52,3 +53,14 @@ MANIFEST
 .venv*/
 .conda*/
 env*/
+
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+**/.history
