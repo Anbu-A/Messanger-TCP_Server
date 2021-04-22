@@ -32,7 +32,7 @@ class Server():
             client, addr = s.accept()
     
             print ('Got connection from', addr )
-            msg = "thank you for connecting\n"    
+            msg = "[System]: Thank you for connecting\n"    
             client.send(msg.encode())
     
             start_new_thread(self.new_con, (client, addr, ))
