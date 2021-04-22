@@ -3,12 +3,6 @@ import socket
 from _thread import *
 
 
-# symbolical constants
-BUFFER_SIZE = 1024
-PORT        = 9999
-SERVER      = "127.0.0.1"
-
-
 # global variables
 CONNECTED_CLIENTS = []
 CLIENT_NAMES = {} 
@@ -18,20 +12,21 @@ class Server():
     def __init__(self, ip, port):
         self.ip = ip
         self.port = port
+        self.buffer_size = 1024
 
     def __enter__(self) :
         return self
     
     def __exit__ (self, exception_type, exception_value, traceback):
-        print("DC")
-        #client.close()
+        pass
+        # will be used later on to dc
 
     def start_server(self):
         s = socket.socket()		
         print ("Socket successfully created")
     
-        s.bind(('', PORT))		
-        print ("socket binded to %s" %(PORT))
+        s.bind(('', self.port))		
+        print ("socket binded to %s" %(self.port))
     
         s.listen(5)	
         print ("socket is listening")			
@@ -49,13 +44,13 @@ class Server():
     def new_con(self, client, addr):
         # add new clients to list and creates dict entry with name(which is the first message to receive from the client)
         CONNECTED_CLIENTS.append(client)
-        client_name = client.recv(BUFFER_SIZE).decode()
+        client_name = client.recv(self.buffer_size).decode()
         CLIENT_NAMES[client] = client_name
         print(client_name)
 
         while True:
             while(True):
-                client_msg = client.recv(BUFFER_SIZE).decode()
+                client_msg = client.recv(self.buffer_size).decode()
                 print(f"User {str(client_name)}: {client_msg}")
 
                 # server receives message from a client and send it 
@@ -64,12 +59,3 @@ class Server():
                     if(clients != client):  
                         clients.send((f"[{client_name}]:{client_msg}\n").encode())                
                 break
-        
-
-def Main():
-    with Server(SERVER, PORT) as server:
-        server.start_server()
-
-
-if __name__ == '__main__':
-    Main()
