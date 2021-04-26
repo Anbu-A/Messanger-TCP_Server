@@ -57,11 +57,11 @@ class Server():
             client_msg = client.recv(self.buffer_size).decode()
             # https://stackoverflow.com/questions/667640/how-to-tell-if-a-connection-is-dead-in-python
             if(len(client_msg) == 0):
-                print("TAFNIIIIIS")
                 self.connected_clients.remove(client)
+                client.close()
+                print(f"Clients left: {len(self.connected_clients)}")
                 break
             # TO-DO: Also close connection from server side if client unexpectetlly DCs 
-
             print(f"User {str(client_name)}: {client_msg}")
             for clients in self.connected_clients:
                 if(clients != client):
